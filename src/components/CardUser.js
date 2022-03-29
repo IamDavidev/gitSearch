@@ -1,10 +1,20 @@
 import axios from 'axios';
+
 import git from '../assets/github.svg';
+import git2 from '../assets/neonHub.png'
+import git3 from '../assets/github1.png'
 
 import location from '../assets/location.svg'
 import blog from '../assets/blog.svg'
 import twitter from '../assets/twitter.svg'
 import company from '../assets/company.svg'
+
+
+const gitUsers = [
+  git,
+  git2,
+  git3,
+]
 
 class CardUser extends HTMLElement {
   constructor() {
@@ -35,6 +45,7 @@ class CardUser extends HTMLElement {
          .user__img{
            width:60px;
            margin: .5rem 1rem;
+           border-radius:1rem;
          }
          .user__info{
            display:flex;
@@ -50,6 +61,8 @@ class CardUser extends HTMLElement {
          .user__info--login{
            font-weight:700;
            color:var(--color--effect);
+           text-decoration:none;
+           cursor:pointer;
          }
          .joinedDate{
            font-weight:400;
@@ -62,9 +75,11 @@ class CardUser extends HTMLElement {
            gap:1rem;
            margin: 1.5rem 0 
          }
+
          .main__description{
            min-height:3rem
          }
+
         .main__info{
           background: var(--background--color);
           display:flex;
@@ -73,6 +88,7 @@ class CardUser extends HTMLElement {
           border-radius:1rem;
           padding:1rem;
         }
+
         .main__info > p {
           font-size:.8rem;
           display:flex;
@@ -81,10 +97,12 @@ class CardUser extends HTMLElement {
           justify-content:center;
           gap:.5rem;
         }
+
         .main__info > p > .spanInfo{
           font-size:1rem;
           font-weight:bold;
         }
+
         .footer{
           display:flex;
           flex-direction:column;
@@ -92,6 +110,7 @@ class CardUser extends HTMLElement {
           justify-content:center;
           gap:.5rem;
         }
+
         .footer > P{
           display:flex;
           align-items:flex-start;
@@ -101,6 +120,7 @@ class CardUser extends HTMLElement {
   
     `;
   }
+
   static get stylesNoUser() {
     return /*css*/ `
         .containerNouser{
@@ -132,6 +152,7 @@ class CardUser extends HTMLElement {
         .get(`https://api.github.com/users/${user}`)
         .then((res) => res.data)
         .then((data) => {
+          console.log(data)
           const {
             login,
             name,
@@ -144,10 +165,14 @@ class CardUser extends HTMLElement {
             blog,
             twitter_username,
             company,
+            html_url,
           } = data;
+
           const description = bio || 'No  hay description disponible';
           const joined = new Date(created_at).toLocaleDateString('es-ES');
           const twitter = twitter_username || 'No hay twitter';
+          const numRandom = Math.floor(Math.random() * 3)
+
           return {
             login,
             name,
@@ -160,10 +185,13 @@ class CardUser extends HTMLElement {
             twitter,
             company,
             description,
+            num: numRandom,
+            profileUrl: html_url,
           };
+
         });
-      console.log(res);
       return res;
+
     } catch (error) {
       this.errUser(error);
     }
@@ -177,7 +205,6 @@ class CardUser extends HTMLElement {
     this.usergithub = this.getAttribute('user');
     this.getInformationUSerGithub(this.usergithub).then((data) => {
       this.user = data;
-      console.log(data)
       if (data === undefined || !data) return this.renderNouser();
       this.render();
     });
@@ -197,10 +224,10 @@ class CardUser extends HTMLElement {
  <div class='container'>
      <div class='render'>
         <header class="user">
-            <img src="${git}"" alt="usergit" class="user__img" />
+            <img src="${gitUsers[this.user.num]}"" alt="usergit" class="user__img" lazy="loaded" />
             <section class="user__info">
                 <h2 class="user__info--name">${this.user.name}</h2>
-                <span class="user__info--login">@${this.user.login}</span>
+                <a class="user__info--login" href="${this.user.profileUrl}" target="_blank">@${this.user.login}</a>
                 <p class="user__info--joined"><span class="joinedDate">${this.user.joined}</span></p>
             </section>
         </header>

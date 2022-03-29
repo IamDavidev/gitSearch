@@ -17,6 +17,7 @@ class Github extends HTMLElement {
         :host{
 
     }
+
     .header{
       padding:1rem;
     }
@@ -57,10 +58,14 @@ class Github extends HTMLElement {
         width:100%;
         background:transparent;
         border:none;
+        padding:.5rem;
+        border-radius:1rem;
+        color:var(--text--color);
     }
     .header__search--input:focus{
         outline:none
     }
+    
     .header__search--input::placeholder{
         color:rgb(255 255 255 / .7);
 
@@ -75,7 +80,7 @@ class Github extends HTMLElement {
     }
 
     #carduser{
-      min-height:600px;
+      min-height:400px;
     }
 
     .noUser{
@@ -95,26 +100,27 @@ class Github extends HTMLElement {
       border-radius:1rem;
       text-align:center;
     }
+    @media (min-width:768px){
+      .cardGithub{
+        width:500px
+      }
+    }
     `;
   }
 
-  initSearch() {
-    const $cardUser = this.shadowRoot.querySelector('#carduser')
-
-  }
 
   connectedCallback() {
     this.render();
-    this.handleSearch();
+    this.getDom();
     // this.getInformationUSerGithub('octocat')
   }
 
-  handleSearch() {
+  getDom() {
     const $searchUser = this.shadowRoot.querySelector('.git');
     const $cardUser = this.shadowRoot.querySelector('#carduser')
     if (!$searchUser) return;
-    $cardUser.innerHTML = `<card-user user="octocat"></card-user>`;
 
+    $cardUser.innerHTML = `<card-user user="octocat"></card-user>`;
     $searchUser.addEventListener('submit', (evt) => {
 
       evt.preventDefault();
@@ -124,48 +130,45 @@ class Github extends HTMLElement {
     });
 
   }
+
   noUser() {
     const $cardUser = this.shadowRoot.querySelector('#carduser')
     $cardUser.innerHTML = `<div class="noUser"> <span> No hay usuarios</span></div>`;
     return;
   }
 
-
   render() {
     this.shadowRoot.innerHTML = /*html*/ `
         <style>${Github.styles}</style>
  <div class='container'>
      <div class='render'>
+     <div class="cardGithub">
         <header class="header">
-            <section class="header__info">
-                <h3 class="header__info--title">
-                DavGit
+              <section class="header__info">
+                  <h3 class="header__info--title">
+                  DavGit
                 </h3>
-                <button class="header__info--btncolor">
-                    <span>
-                        light
-                    </span>    
-                     <img src="${theme}" alt="theme" />
-                </button>
-             </section>
-             <section class="search">
-                <form  id="searchgit" class="header__search git">
-                    <img src="${search}" alt="git"  class="header__search--image"/>
+
+               </section>
+               <section class="search">
+                  <form  id="searchgit" class="header__search git">
+                      <img src="${search}" alt="git"  class="header__search--image"/>
                     <input 
-                    type="" 
-                    id="searchGit" 
-                    name="search" 
-                    class="header__search--input"
-                    placeholder="Busca usurios . . . " 
-                    />
+                      type="" 
+                      id="searchGit" 
+                      name="search" 
+                      class="header__search--input"
+                      placeholder="Busca usurios . . . " 
+                      />
                     <button class="header__search--btn">
-                    Buscar
-                 </button>
-             </form>
-             </section>
-        </header>
-        <footer id="carduser">
-        </footer>
+                      Buscar
+                   </button>
+               </form>
+               </section>
+          </header>
+          <footer id="carduser">
+          </footer>  
+        </div>
      </div>
         <slot></slot>
 </div>
