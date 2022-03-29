@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import './CardUser';
+import './NoUser'
 
 import search from '../assets/search.svg';
 import theme from '../assets/theme.svg'
@@ -112,7 +113,6 @@ class Github extends HTMLElement {
   connectedCallback() {
     this.render();
     this.getDom();
-    // this.getInformationUSerGithub('octocat')
   }
 
   getDom() {
@@ -121,8 +121,8 @@ class Github extends HTMLElement {
     if (!$searchUser) return;
 
     $cardUser.innerHTML = `<card-user user="octocat"></card-user>`;
-    $searchUser.addEventListener('submit', (evt) => {
 
+    $searchUser.addEventListener('submit', (evt) => {
       evt.preventDefault();
       const valueInput = evt.target.search.value;
       if (!valueInput) return this.noUser();
@@ -133,7 +133,7 @@ class Github extends HTMLElement {
 
   noUser() {
     const $cardUser = this.shadowRoot.querySelector('#carduser')
-    $cardUser.innerHTML = `<div class="noUser"> <span> No hay usuarios</span></div>`;
+    $cardUser.innerHTML = `<no-user></no-user>`;
     return;
   }
 
@@ -170,7 +170,6 @@ class Github extends HTMLElement {
           </footer>  
         </div>
      </div>
-        <slot></slot>
 </div>
     `;
   }

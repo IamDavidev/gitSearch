@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+
+
 import git from '../assets/github.svg';
 import git2 from '../assets/neonHub.png'
 import git3 from '../assets/github1.png'
@@ -121,26 +123,6 @@ class CardUser extends HTMLElement {
     `;
   }
 
-  static get stylesNoUser() {
-    return /*css*/ `
-        .containerNouser{
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          border-radius:1rem;
-          margin:1rem 3rem;
-        }
-        .textNoUser{
-          text-align:center;
-          padding:1rem;
-          background: var(--color--card);
-          font-size:1.2rem;
-          font-weight:700;
-          color:var(--color--effect);
-          border-radius:1rem;
-        }
-    `;
-  }
 
   async getInformationUSerGithub(user) {
     if (!user) {
@@ -152,7 +134,6 @@ class CardUser extends HTMLElement {
         .get(`https://api.github.com/users/${user}`)
         .then((res) => res.data)
         .then((data) => {
-          console.log(data)
           const {
             login,
             name,
@@ -172,7 +153,6 @@ class CardUser extends HTMLElement {
           const joined = new Date(created_at).toLocaleDateString('es-ES');
           const twitter = twitter_username || 'No hay twitter';
           const numRandom = Math.floor(Math.random() * 3)
-
           return {
             login,
             name,
@@ -188,33 +168,32 @@ class CardUser extends HTMLElement {
             num: numRandom,
             profileUrl: html_url,
           };
-
         });
+
       return res;
 
     } catch (error) {
-      this.errUser(error);
+      this.errUser();
     }
   }
 
   errUser(err) {
-    console.error(err);
+    return this.renderNouser()
   }
 
   connectedCallback() {
+
     this.usergithub = this.getAttribute('user');
     this.getInformationUSerGithub(this.usergithub).then((data) => {
       this.user = data;
       if (data === undefined || !data) return this.renderNouser();
       this.render();
     });
+
   }
   renderNouser() {
-    this.shadowRoot.innerHTML = /*html*/ `
-    <style>${CardUser.stylesNoUser}</style>
-    <div class="containerNouser">
-      <p class="textNoUser">No hay informacion disponible</p>
-    </div>
+    this.shadowRoot.innerHTML =/*html*/`
+    <no-user user="${this.usergithub}"></no-user>
     `;
   }
 
@@ -257,7 +236,7 @@ class CardUser extends HTMLElement {
             <p class="footer__company"><img src="${company}">${this.user.company}</p>
         </footer>
      </div>
-        <slot></slot>
+     
 </div>
     `;
   }
