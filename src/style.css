@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Mono:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -20,6 +20,7 @@
     --color--effect: #185abc;
   }
 }
+
 html,
 body {
   margin: 0;
@@ -31,7 +32,7 @@ body {
   color: var(--text--color);
   background-color: var(--background--color);
   min-height: 100%;
-  font-family: 'Montserrat';
+  font-family: 'Red Hat Mono', monospace;
   font-weight: 400;
   font-size: 1rem;
 }

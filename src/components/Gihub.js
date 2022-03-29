@@ -75,9 +75,26 @@ class Github extends HTMLElement {
     }
 
     #carduser{
-      min-height:300px;
+      min-height:600px;
     }
 
+    .noUser{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:2rem;
+      border-radius:1rem;
+      padding:1rem;
+      margin:1rem;
+
+    }
+    .noUser > span{
+      color:var(--color--btn);
+      background: var(--color--card);
+      padding:1rem;
+      border-radius:1rem;
+      text-align:center;
+    }
     `;
   }
 
@@ -102,9 +119,15 @@ class Github extends HTMLElement {
 
       evt.preventDefault();
       const valueInput = evt.target.search.value;
+      if (!valueInput) return this.noUser();
       $cardUser.innerHTML = `<card-user user='${valueInput}'></card-user>`;
     });
 
+  }
+  noUser() {
+    const $cardUser = this.shadowRoot.querySelector('#carduser')
+    $cardUser.innerHTML = `<div class="noUser"> <span> No hay usuarios</span></div>`;
+    return;
   }
 
 

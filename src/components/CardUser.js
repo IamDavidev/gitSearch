@@ -34,13 +34,14 @@ class CardUser extends HTMLElement {
         }
          .user__img{
            width:60px;
+           margin: .5rem 1rem;
          }
          .user__info{
            display:flex;
            flex-direction:column;
            align-items:flex-start;
           justify-content:center;
-            gap:.8rem;
+            gap:.2rem;
          }
          .user__info--name{
             font-size:1.2rem;
@@ -97,12 +98,33 @@ class CardUser extends HTMLElement {
           justify-content:center;
           gap:1rem;
         }
+  
+    `;
+  }
+  static get stylesNoUser() {
+    return /*css*/ `
+        .containerNouser{
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          border-radius:1rem;
+          margin:1rem 3rem;
+        }
+        .textNoUser{
+          text-align:center;
+          padding:1rem;
+          background: var(--color--card);
+          font-size:1.2rem;
+          font-weight:700;
+          color:var(--color--effect);
+          border-radius:1rem;
+        }
     `;
   }
 
   async getInformationUSerGithub(user) {
     if (!user) {
-      return console.log('no user');
+      return;
     }
 
     try {
@@ -148,15 +170,25 @@ class CardUser extends HTMLElement {
   }
 
   errUser(err) {
-    console.log(err);
+    console.error(err);
   }
 
   connectedCallback() {
     this.usergithub = this.getAttribute('user');
     this.getInformationUSerGithub(this.usergithub).then((data) => {
       this.user = data;
+      console.log(data)
+      if (data === undefined || !data) return this.renderNouser();
       this.render();
     });
+  }
+  renderNouser() {
+    this.shadowRoot.innerHTML = /*html*/ `
+    <style>${CardUser.stylesNoUser}</style>
+    <div class="containerNouser">
+      <p class="textNoUser">No hay informacion disponible</p>
+    </div>
+    `;
   }
 
   render() {
