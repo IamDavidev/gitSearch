@@ -7,8 +7,15 @@ class ContainerApp extends HTMLElement {
 
     static get styles() {
         return /*css*/`
+
+        :host[dark]{
+     
+                --background-color: #0ff;
+            
+        }
        
         .container{
+            background: var(--background-color);
             box-sizing:border-box;
             display:flex;
             justify-content:center;
@@ -27,7 +34,7 @@ class ContainerApp extends HTMLElement {
     render() {
         this.shadowRoot.innerHTML =/*html*/`
         <style>${ContainerApp.styles}</style>
- <div class='container'>
+ <div class='container' dark>
      <div class='renderContainer'>
             <github-user></github-user>
      </div>
