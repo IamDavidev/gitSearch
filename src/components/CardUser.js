@@ -134,6 +134,7 @@ class CardUser extends HTMLElement {
         .get(`https://api.github.com/users/${user}`)
         .then((res) => res.data)
         .then((data) => {
+
           const {
             login,
             name,
