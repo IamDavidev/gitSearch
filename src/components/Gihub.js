@@ -120,7 +120,7 @@ class Github extends HTMLElement {
     const $cardUser = this.shadowRoot.querySelector('#carduser')
     if (!$searchUser) return;
 
-    $cardUser.innerHTML = `<card-user user="octocat"></card-user>`;
+    $cardUser.innerHTML = `<card-user user="itsdavidev"></card-user>`;
 
     $searchUser.addEventListener('submit', (evt) => {
       evt.preventDefault();

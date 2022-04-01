@@ -2,11 +2,10 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    --background--color: #d3f8e2;
-    --text--color: #a9def9;
-    --color--second: #e4c1f9;
-    --color--third: #ede7b1;
-    --color--effect: #f694c1;
+    --background--color: #aee9c6;
+    --text--color: #000;
+    --color--card: #fafafa;
+    --container--card: #aee9c6;
   }
 }
 
@@ -14,11 +13,13 @@
   :root {
     --background--color: #141c2f;
     --text--color: #fff;
-    --color--btn: #0078fe;
     --color--card: #1f2a48;
     --container--card: #141c2f;
-    --color--effect: #185abc;
   }
+}
+:root {
+  --color--btn: #0078fe;
+  --color--effect: #185abc;
 }
 
 html,

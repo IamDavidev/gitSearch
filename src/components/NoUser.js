@@ -1,11 +1,11 @@
 class NoUser extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-    }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
 
-    static get styles() {
-        return /*css*/`
+  static get styles() {
+    return /*css*/`
           .containerNouser{
           display:flex;
           align-items:center;
@@ -23,30 +23,30 @@ class NoUser extends HTMLElement {
           border-radius:1rem;
         }
     `;
-    }
+  }
 
-    connectedCallback() {
-        this.user = this.getAttribute('user') || 'No User';
-        this.render();
-    }
+  connectedCallback() {
+    this.user = this.getAttribute('user') || 'No User';
+    this.render();
+  }
 
-    render() {
-        this.shadowRoot.innerHTML =/*html*/`
+  render() {
+    this.shadowRoot.innerHTML =/*html*/`
         <style>${NoUser.styles}</style>
     <div class='containerNouser'>
     <div class='textNoUser'>
-        <p> 
-           NO HAY UN USUARIO ASI
-        </p>
-        <p>
-           - INTENTA DE NUEVO
-        </p>
+    <p>
+    - INTENTA DE NUEVO
+    </p>
+    <p> 
+       NO HAY UN USUARIO ASI
+    </p>
         <p>
           USER:  ${this.user}
         </p>
      </div>
     </div>
     `;
-    }
+  }
 }
 customElements.define('no-user', NoUser);
