@@ -1,10 +1,7 @@
-import axios from 'axios';
-
 import './CardUser';
 import './NoUser'
 
 import search from '../assets/search.svg';
-import theme from '../assets/theme.svg'
 
 class Github extends HTMLElement {
   constructor() {
@@ -15,11 +12,33 @@ class Github extends HTMLElement {
 
   static get styles() {
     return /*css*/ `
+        :host(.OnDark){
+          --background--color: #141c2f;
+        --text--color: #fff;
+       --color--card: #1f2a48;
+       --container--card: #141c2f;1a;
+        }
         :host{
+          --background--color: #aee9c6;
+          --text--color: #000;
+          --color--card: #fafafa;
+          --container--card: #aee9c6;
+        }
+        .container{
+          background: var(--background--color);
+          width:100%;
+          min-height:100vh;
+          display: flex;
+          flex-direction:column;
+          justify-content:center;
+          align-items:center;
+          margin:0;
+          padding:0;
 
-    }
+        }
 
     .header{
+      background: var(--background--dark);
       padding:1rem;
     }
     .header__info{
@@ -148,7 +167,7 @@ class Github extends HTMLElement {
                   <h3 class="header__info--title">
                   DavGit
                 </h3>
-
+                <slot></slot>
                </section>
                <section class="search">
                   <form  id="searchgit" class="header__search git">
