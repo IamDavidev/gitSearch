@@ -26,6 +26,7 @@ class Github extends HTMLElement {
         }
         .container{
           background: var(--background--color);
+          color:var(--text--color);
           width:100%;
           min-height:100vh;
           display: flex;
